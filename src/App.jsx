@@ -1,7 +1,17 @@
+import { Canvas } from "@react-three/fiber"
+import { Suspense } from "react";
+import CanvasLoader from './components/CanvasLoader'
+import Car from "./components/Car";
+
 export default function App() {
   return (
-    <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
+     
+    
+<Canvas shadows style={{ height:window.innerHeight, width:window.innerWidth}}>
+<Suspense fallback={CanvasLoader} >
+<Car/>
+</Suspense>
+</Canvas>
+    
   )
 }
