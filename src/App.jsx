@@ -7,11 +7,11 @@ export default function App() {
   return (
      
     
+<Suspense fallback={null} >
 <Canvas shadows style={{ height:window.innerHeight, width:window.innerWidth}}>
-<Suspense fallback={CanvasLoader} >
 <Car/>
-</Suspense>
 </Canvas>
+</Suspense>
     
   )
 }

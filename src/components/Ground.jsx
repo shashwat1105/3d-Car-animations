@@ -1,7 +1,7 @@
 import { MeshReflectorMaterial } from '@react-three/drei'
-import { useLoader } from '@react-three/fiber'
+import { useFrame, useLoader } from '@react-three/fiber'
 import React, { useEffect } from 'react'
-import { RepeatWrapping, TextureLoader } from 'three'
+import { LinearEncoding, RepeatWrapping, TextureLoader } from 'three'
 
 const Ground = () => {
 
@@ -10,7 +10,11 @@ const Ground = () => {
         "public/textures/terrain-normal.jpg"
     ]);
 
-
+    useFrame((state, delta) => {
+        let t = -state.clock.getElapsedTime() * 0.128;
+        roughness.offset.set(0, t);
+        normal.offset.set(0,t);
+      });
     useEffect(()=>{
         [normal,roughness].forEach((t)=>{
             t.wrapS=RepeatWrapping;
@@ -18,11 +22,11 @@ const Ground = () => {
             t.repeat.set(5,5);
         })
 
-        // normal.encoding=LinearEncoding;
+        normal.encoding=LinearEncoding;
     },[normal,roughness])
   return (
-    <mesh rotateX={-Math.PI*0.5} castShadow receiveShadow>
-<planeGeometry args={[30,30]}/>
+    <mesh rotation={[-Math.PI/2,0,0]} position={[-2.285, -0.01, -1.325]} castShadow receiveShadow>
+<planeGeometry args={[30,30]}  />
 <MeshReflectorMaterial
 envMapIntensity={0}
 dithering={[0.015,0.015,0.015]}
@@ -31,6 +35,7 @@ blur={[1000,400]}
 mixBlur={30}
 roughnessMap={roughness}
 normalMap={normal}
+normalScale={[0.15,0.15]}
 mixStrength={80}
 mixContrast={1}
 resolution={1024}
