@@ -5,14 +5,16 @@ import { useControls } from 'leva';
 
 const Livin = () => {
 const ref=useRef();
-const gltf=useGLTF('public/models/dinning_room/dining_room__kichen_baked.glb');
+const gltf=useGLTF('public/models/dinning_room/scene.gltf');
 
 
 const texture=useTexture('public/models/dinning_room/textures/laminate3.png');
-// console.log(gltf.scene.children[0].children[0].children[0].children);
-console.log(gltf.scene.getObjectByName('IKEA_seat').children[0].material.map);
-gltf.scene.getObjectByName('IKEA_seat').children[0].material.map=texture;
-gltf.scene.getObjectByName('IKEA_seat').children[0].material.map.needsUpdate=true;
+// console.log(gltf.scene.children[0].children[0].children[0].children[3]);
+// gltf.scene.getObjectByName('table').children[0].material.color;
+console.log(gltf.scene.getObjectByName('table').children[0].material.emissive.setHex='#ff4100');
+gltf.scene.getObjectByName('table').children[0].material.map=texture;
+// gltf.scene.getObjectByName('table').children[0].material.emissive=texture;
+gltf.scene.getObjectByName('table').children[0].material.map.needsUpdate=true;
 // gltf.scene.getObjectByName('IKEA_seat').children[0].material.map.name='public/models/dinning_room/textures/laminate3.png';
 // gltf.scene.getObjectByName('IKEA_seat').children[0].material.map.isRenderTargetTexture=true;
 const {nodes,materials}=gltf;

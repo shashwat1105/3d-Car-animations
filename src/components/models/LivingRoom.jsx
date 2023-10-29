@@ -1,16 +1,16 @@
 import { Environment, Html, OrbitControls, PerspectiveCamera } from '@react-three/drei'
 import React, { useMemo, useRef, useState } from 'react'
-import Scene from './Scene'
+import Model from './Scene'
 import { useControls } from 'leva'
 import annotations from './annotations.json'
 import { useFrame, useThree } from '@react-three/fiber'
 import TWEEN  from '@tweenjs/tween.js'
+import MaterialMenu from './MaterialMenu'
 
 
-function Annotations({ controls }) {
+function Annotations({ controls,selected,setSelected }) {
     const { camera } = useThree()
-    const [selected, setSelected] = useState(-1)
-  
+  console.log("annotationss",selected);
     return (
       <>
         {annotations.map((a, i) => {
@@ -72,14 +72,14 @@ function Annotations({ controls }) {
       TWEEN.update()
     })
   }
-  
-
-
-
-
 
 
 const LivingRoom = () => {
+
+  const [selected, setSelected] = useState(-1)
+const [textureSelect,setTextureSelect]=useState(-1);
+const [componentSelect,setComponentSelect]=useState(-1);
+
 const ref=useRef();
     const options=useMemo(()=>{
         return{
@@ -87,20 +87,77 @@ const ref=useRef();
           y: { value: 0, min:  -Math.PI*4, max: Math.PI * 4, step: 0.01 },
           z: { value: 0, min:  -Math.PI*4, max: Math.PI * 4, step: 0.01 },
           visible: true,
-          color: { value: 'lime' },
+          color: { value: 'white' },
         }
       },[])
-          
+
+      const options2=useMemo(()=>{
+        return{
+        
+          Floor: false,
+          Chair: false,
+          Table: false,
+          Cabinet:false
+
+
+          // color: { value: 'white' },
+        }
+      },[])
+
+          console.log("room",selected);
       const p=useControls('Model dimensions ',options);
+      const p2=useControls("Texture Change",options2);
+let sendValue=null;
+
+      if(p2.Floor==true){
+        p2.Chair=false;
+        p2.Table=false;
+        p2.Cabinet=false;
+        sendValue="Floor";
+        setComponentSelect(0)
+      }else if(p2.Chair==true){
+        p2.Table=false;
+        p2.Cabinet=false;
+        p2.Floor==false;
+        sendValue="Chair";
+        setComponentSelect(1)
+      }else if(p2.Table==true){
+        p2.Cabinet=false;
+        p2.Floor==false;
+        p2.Chair=false;
+        sendValue="Table";
+        setComponentSelect(2);
+      }else if(p2.Cabinet==true){
+        p2.Floor==false;
+        p2.Chair=false;
+        p2.Table=false;
+       sendValue="Cabinet";
+       setComponentSelect(3);
+      }
+
+
+
+      console.log("p2 floor:",p2.Floor)
+      console.log("p2 chair:",p2.Chair)
+      console.log("p2 table:",p2.Table)
+      console.log("p2 Cabinet:",p2.Cabinet)
+      console.log(sendValue);
+      console.log(componentSelect);
   return (
     <>
     <PerspectiveCamera makeDefault position={[p.x,p.y,p.z]}/>
     <OrbitControls target={[0,0,0]} ref={ref} maxPolarAngle={1.45} enableDamping={false} />
     <ambientLight args={['white',0.5]} />
-    <Annotations controls={ref}  />
+    <Annotations controls={ref} selected={selected} setSelected={setSelected} />
     <Tween />
+    {
+     sendValue? <MaterialMenu setTextureSelect={setTextureSelect} textureSelect={textureSelect} 
+     sendValue={sendValue}
+     />:null
+
+    }
     <Environment preset='apartment' />
-    <Scene position={[0,0,0]}/>
+    <Model position={[0,0,0]} Color={p.color} componentSelect={componentSelect} textureSelect={textureSelect}/>
 
         </>
   )
