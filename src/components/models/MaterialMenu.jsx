@@ -7,29 +7,29 @@ import chairObj from '../../../public/models/dinning_room/secondary_materials/Ch
 import tableObj from '../../../public/models/dinning_room/secondary_materials/Table'
 import cabinObj from '../../../public/models/dinning_room/secondary_materials/Cabinet'
 
-export default function MaterialMenu({ setTextureSelect,sendValue}) {
+export default function MaterialMenu({ setTextureSelect,componentSelect}) {
 
     let textureArray=[]; 
- switch(sendValue){
+ switch(componentSelect){
 
-    case "Floor":
+    case 0:
          textureArray =  [
             floorObj[0], floorObj[1],floorObj[2], floorObj[3], floorObj[4],];
             break;
 
-     case "Chair":
+     case 1:
         textureArray =  [
             chairObj[0], chairObj[1],chairObj[2], chairObj[3], chairObj[4],];
             break;
         
             
     
-    case "Table":
+    case 2:
          textureArray = [
             tableObj[0], tableObj[1],tableObj[2], tableObj[3], tableObj[4],]
             break;
     
-    case "Cabinet":
+    case 3:
      textureArray =  [
             cabinObj[0], cabinObj[1],cabinObj[2], cabinObj[3], cabinObj[4],];
 

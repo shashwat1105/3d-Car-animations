@@ -98,50 +98,50 @@ const ref=useRef();
           Chair: false,
           Table: false,
           Cabinet:false
-
-
-          // color: { value: 'white' },
         }
       },[])
+
 
           console.log("room",selected);
       const p=useControls('Model dimensions ',options);
       const p2=useControls("Texture Change",options2);
-let sendValue=null;
+let sexyPointer=-1;
 
+ 
       if(p2.Floor==true){
+        p2.Table=false;
+        p2.Cabinet=false;
         p2.Chair=false;
+        sexyPointer=0;
+
+      }
+       else if(p2.Chair==true){
         p2.Table=false;
         p2.Cabinet=false;
-        sendValue="Floor";
-        setComponentSelect(0)
-      }else if(p2.Chair==true){
-        p2.Table=false;
-        p2.Cabinet=false;
-        p2.Floor==false;
-        sendValue="Chair";
-        setComponentSelect(1)
+        p2.Floor=false;
+        sexyPointer=1;
+
       }else if(p2.Table==true){
         p2.Cabinet=false;
-        p2.Floor==false;
+        p2.Floor=false;
         p2.Chair=false;
-        sendValue="Table";
-        setComponentSelect(2);
+        sexyPointer=2;
+        
       }else if(p2.Cabinet==true){
-        p2.Floor==false;
+        p2.Floor=false;
         p2.Chair=false;
         p2.Table=false;
-       sendValue="Cabinet";
-       setComponentSelect(3);
+        sexyPointer=3;
+
       }
 
 
+  useMemo(()=>setComponentSelect(sexyPointer),[setComponentSelect,sexyPointer]);
 
       console.log("p2 floor:",p2.Floor)
       console.log("p2 chair:",p2.Chair)
       console.log("p2 table:",p2.Table)
       console.log("p2 Cabinet:",p2.Cabinet)
-      console.log(sendValue);
       console.log(componentSelect);
   return (
     <>
@@ -151,8 +151,8 @@ let sendValue=null;
     <Annotations controls={ref} selected={selected} setSelected={setSelected} />
     <Tween />
     {
-     sendValue? <MaterialMenu setTextureSelect={setTextureSelect} textureSelect={textureSelect} 
-     sendValue={sendValue}
+     componentSelect>=0? <MaterialMenu setTextureSelect={setTextureSelect} componentSelect={componentSelect} 
+     
      />:null
 
     }
