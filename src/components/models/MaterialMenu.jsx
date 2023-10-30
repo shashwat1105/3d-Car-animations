@@ -44,11 +44,11 @@ export default function MaterialMenu({ setTextureSelect,componentSelect}) {
 
  
 
-console.log(texture[0]);
+// console.log(texture[0]);
 
   return (
     <Hud>
-      <OrthographicCamera makeDefault position={[0, 0, 2]} zoom={50} />
+      <OrthographicCamera makeDefault position={[0, 0, 4]} zoom={50} />
     <ambientLight intensity={1}/>
     <spotLight intensity={120} fov={10}/>
       <Buttons id={0} texture={texture[0]} position={[-5, -4.5, 0]} setTextureSelect={setTextureSelect} />

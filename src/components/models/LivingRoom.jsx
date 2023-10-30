@@ -6,6 +6,7 @@ import annotations from './annotations.json'
 import { useFrame, useThree } from '@react-three/fiber'
 import TWEEN  from '@tweenjs/tween.js'
 import MaterialMenu from './MaterialMenu'
+import OptionTools from './OptionTools'
 
 
 function Annotations({ controls,selected,setSelected }) {
@@ -102,7 +103,7 @@ const ref=useRef();
       },[])
 
 
-          console.log("room",selected);
+          // console.log("room",selected);
       const p=useControls('Model dimensions ',options);
       const p2=useControls("Texture Change",options2);
 let sexyPointer=-1;
@@ -142,7 +143,7 @@ let sexyPointer=-1;
       console.log("p2 chair:",p2.Chair)
       console.log("p2 table:",p2.Table)
       console.log("p2 Cabinet:",p2.Cabinet)
-      console.log(componentSelect);
+      console.log("living",componentSelect);
   return (
     <>
     <PerspectiveCamera makeDefault position={[p.x,p.y,p.z]}/>
@@ -156,6 +157,7 @@ let sexyPointer=-1;
      />:null
 
     }
+    {/* <OptionTools setComponentSelect={setComponentSelect} componentSelect={componentSelect}/> */}
     <Environment preset='apartment' />
     <Model position={[0,0,0]} Color={p.color} componentSelect={componentSelect} textureSelect={textureSelect}/>
 

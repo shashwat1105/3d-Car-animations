@@ -11,12 +11,13 @@ const floorRef=useRef();
  
 console.log("texture",textureSelect);
 
-  //  const texture = useMemo(() => {
-  //   const textureSource = floorObj[textureSelect >= 0 && componentSelect == 0 ? textureSelect : 0];
-  //   return useTexture(textureSource);
-  // }, [componentSelect, textureSelect]);
+ if(textureSelect >= 0 && componentSelect == 0){
+  sessionStorage.setItem("Floor",textureSelect);
 
-  const textureSource = floorObj[textureSelect >= 0 && componentSelect == 0 ? textureSelect : 0];
+ }
+const floorVar=sessionStorage.getItem("Floor");
+  const textureSource =useMemo(()=> floorObj[textureSelect >= 0 && componentSelect == 0 ? floorVar : 0]
+  ,[textureSelect,componentSelect,floorVar]);
 const texture=useTexture(textureSource);
    texture.wrapS = THREE.RepeatWrapping;
    texture.wrapT = THREE.RepeatWrapping;
@@ -29,7 +30,12 @@ const texture=useTexture(textureSource);
 //   return useTexture(textureSource);
 // }, [componentSelect, textureSelect]);
 
-const textureSource1 = cabinObj[textureSelect >= 0 && componentSelect == 3 ? textureSelect : 0];
+if(textureSelect >= 0 && componentSelect == 3){
+  sessionStorage.setItem("Cabinet",textureSelect);
+}
+const cabVar=sessionStorage.getItem("Cabinet");
+const textureSource1 = useMemo(()=>cabinObj[textureSelect >= 0 && componentSelect == 3 ? cabVar : 0],
+[textureSelect,componentSelect,cabVar])
 const cabTex=useTexture(textureSource1) 
 cabTex.wrapT = THREE.RepeatWrapping;
 cabTex.wrapS = THREE.RepeatWrapping;
@@ -41,7 +47,13 @@ cabTex.repeat.set(1, 1);
 //   return useTexture(textureSource);
 // }, [componentSelect, textureSelect]);
 
-const textureSource2 = chairObj[textureSelect >= 0 && componentSelect == 1 ? textureSelect : 0];
+if(textureSelect >= 0 && componentSelect == 1){
+  sessionStorage.setItem("Chair",textureSelect);
+}
+const chairVar=sessionStorage.getItem("Chair",textureSelect);
+
+const textureSource2 =useMemo(()=> chairObj[textureSelect >= 0 && componentSelect == 1 ? chairVar : 0],
+[textureSelect,componentSelect,chairVar])
 const chairTex=useTexture(textureSource2)
 chairTex.wrapT = THREE.RepeatWrapping;
 chairTex.wrapS = THREE.RepeatWrapping;
@@ -53,7 +65,13 @@ chairTex.repeat.set(20, 2);
 //   return useTexture(textureSource);
 // }, [componentSelect, textureSelect]);
 
-const textureSource3 = tableObj[textureSelect >= 0 && componentSelect == 2 ? textureSelect : 0];
+if(textureSelect >= 0 && componentSelect == 2 ){
+  sessionStorage.setItem("Table",textureSelect)
+}
+
+const tableVar=sessionStorage.getItem("Table");
+const textureSource3 =useMemo(()=> tableObj[textureSelect >= 0 && componentSelect == 2 ? tableVar : 0]
+,[textureSelect,componentSelect,tableVar]);
 const tableTex=useTexture(textureSource3)
 tableTex.wrapT = THREE.RepeatWrapping;
 tableTex.wrapS = THREE.RepeatWrapping;
@@ -96,7 +114,7 @@ tableTex.repeat.set(2, 1);
         </group>
         <group position={[81.651, 59.793, -127.726]} rotation={[-Math.PI / 2, 0, -Math.PI / 2]} scale={[25.257, 25.257, 2.667]}>
           <mesh geometry={nodes.seat_Leather_0.geometry} material={materials.Leather} >
-            <meshStandardMaterial  map={chairTex}/>
+           {textureSelect>=0? <meshStandardMaterial  map={chairTex}/>:null}
             </mesh>
 
           <mesh geometry={nodes.seat_Material5_0.geometry} material={materials.Material5} >
@@ -109,7 +127,7 @@ tableTex.repeat.set(2, 1);
           </mesh>
         <mesh geometry={nodes.cabinet_Material015_0.geometry}
          material={materials['Material.015']} position={[367.527, 300.186, 45.941]} rotation={[-Math.PI / 2, 0, 0]} scale={[34.407, 249.171, 3.605]} >
-<meshStandardMaterial map={cabTex}/>
+{textureSelect>=0?<meshStandardMaterial map={cabTex}/>:null}
           </mesh>
       
         <mesh geometry={nodes.window_Material016_0.geometry} material={materials['Material.016']} rotation={[-Math.PI / 2, 0, 0]} scale={100} >
@@ -118,7 +136,7 @@ tableTex.repeat.set(2, 1);
         <mesh geometry={nodes.table_Material5001_0.geometry}
          material={materials['Material5.001']} position={[83.1, 65.739, 24.667]} 
          rotation={[-Math.PI / 2, 0, 0]} scale={[80.747, 80.747, 10.763]} >
-<meshStandardMaterial map={tableTex}/>
+{textureSelect>=0 ? <meshStandardMaterial map={tableTex}/>:null}
 
          </mesh>
        
