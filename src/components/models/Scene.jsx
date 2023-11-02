@@ -16,8 +16,8 @@ console.log("texture",textureSelect);
 
  }
 const floorVar=sessionStorage.getItem("Floor");
-  const textureSource =useMemo(()=> floorObj[textureSelect >= 0 && componentSelect == 0 ? floorVar : 0]
-  ,[textureSelect,componentSelect,floorVar]);
+  const textureSource =useMemo(()=> floorObj[floorVar ? floorVar : 0]
+  ,[floorVar]);
 const texture=useTexture(textureSource);
    texture.wrapS = THREE.RepeatWrapping;
    texture.wrapT = THREE.RepeatWrapping;
@@ -34,8 +34,8 @@ if(textureSelect >= 0 && componentSelect == 3){
   sessionStorage.setItem("Cabinet",textureSelect);
 }
 const cabVar=sessionStorage.getItem("Cabinet");
-const textureSource1 = useMemo(()=>cabinObj[textureSelect >= 0 && componentSelect == 3 ? cabVar : 0],
-[textureSelect,componentSelect,cabVar])
+const textureSource1 = useMemo(()=>cabinObj[cabVar ? cabVar : 0],
+[cabVar])
 const cabTex=useTexture(textureSource1) 
 cabTex.wrapT = THREE.RepeatWrapping;
 cabTex.wrapS = THREE.RepeatWrapping;
@@ -52,8 +52,8 @@ if(textureSelect >= 0 && componentSelect == 1){
 }
 const chairVar=sessionStorage.getItem("Chair",textureSelect);
 
-const textureSource2 =useMemo(()=> chairObj[textureSelect >= 0 && componentSelect == 1 ? chairVar : 0],
-[textureSelect,componentSelect,chairVar])
+const textureSource2 =useMemo(()=> chairObj[chairVar ? chairVar : 0],
+[chairVar])
 const chairTex=useTexture(textureSource2)
 chairTex.wrapT = THREE.RepeatWrapping;
 chairTex.wrapS = THREE.RepeatWrapping;
@@ -70,8 +70,8 @@ if(textureSelect >= 0 && componentSelect == 2 ){
 }
 
 const tableVar=sessionStorage.getItem("Table");
-const textureSource3 =useMemo(()=> tableObj[textureSelect >= 0 && componentSelect == 2 ? tableVar : 0]
-,[textureSelect,componentSelect,tableVar]);
+const textureSource3 =useMemo(()=> tableObj[tableVar ? tableVar : 0]
+,[tableVar]);
 const tableTex=useTexture(textureSource3)
 tableTex.wrapT = THREE.RepeatWrapping;
 tableTex.wrapS = THREE.RepeatWrapping;

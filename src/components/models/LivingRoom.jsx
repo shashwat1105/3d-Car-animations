@@ -148,7 +148,7 @@ let sexyPointer=-1;
     <>
     <PerspectiveCamera makeDefault position={[p.x,p.y,p.z]}/>
     <OrbitControls target={[0,0,0]} ref={ref} maxPolarAngle={1.45} enableDamping={false} />
-    <ambientLight args={['white',0.5]} />
+    <ambientLight args={['white',0.5]} intensity={1.7} />
     <Annotations controls={ref} selected={selected} setSelected={setSelected} />
     <Tween />
     {
@@ -158,7 +158,7 @@ let sexyPointer=-1;
 
     }
     {/* <OptionTools setComponentSelect={setComponentSelect} componentSelect={componentSelect}/> */}
-    <Environment preset='apartment' />
+    {/* <Environment preset='apartment' /> */}
     <Model position={[0,0,0]} Color={p.color} componentSelect={componentSelect} textureSelect={textureSelect}/>
 
         </>

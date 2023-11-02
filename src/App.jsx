@@ -1,26 +1,25 @@
-import { Canvas } from "@react-three/fiber"
-import { Suspense } from "react";
-import CanvasLoader from './components/CanvasLoader'
-import Car from "./components/Car";
-import LivinRoom from "./components/LivingRoom/livin";
-import LivingRoom from "./components/models/LivingRoom";
 import './App.css'
-import { PointerLockControls} from "@react-three/drei";
-import { Perf } from "r3f-perf";
+import { BrowserRouter as Router,Routes,Route } from "react-router-dom";
+import Login from "./pages/Login";
+import Home from "./pages/Home";
+import Register from './pages/Register'
+import LivingPage from "./pages/LivingPage";
+import Demo from './pages/demo/Demo';
 
 export default function App() {
   return (
-     
-    
-<Suspense fallback={CanvasLoader} >
-<Canvas shadows style={{ height:window.innerHeight, width:window.innerWidth}}>
-{/* <Car/> */}
-<LivingRoom/>
-{/* <Stats /> */}
+     <Router>
 
-{/* <Perf position="top-left" /> */}
-</Canvas>
-</Suspense>
+      <Routes>
+        <Route path="/" exact element={<Login/>}/>
+        <Route path="/register" exact element={<Register/>}/>
+        <Route path="/Home" exact element={<Home/>}/>
+        <Route path="/dinning" exact element={<LivingPage/>}/>
+<Route path='/demo' exact element={<Demo/>}/>
+      </Routes>
+     </Router>
+    
+ 
     
   )
 }
